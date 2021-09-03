@@ -3,11 +3,16 @@
   "version": "5.0.2",
   "description": "A starter repository for a blog web site using the Eleventy static site generator.",
   "scripts": {
-    "build": "eleventy",
     "watch": "eleventy --watch",
     "serve": "eleventy --serve",
-    "start": "eleventy --serve",
-    "debug": "DEBUG=* eleventy"
+    "debug": "DEBUG=* eleventy",
+    "start": "npm run dev",
+    "dev": "run-s clean eleventy:dev",
+    "build": "run-s clean eleventy:prod",
+    "eleventy:dev": "cross-env ELEVENTY_ENV=development eleventy --serve",
+    "eleventy:prod": "cross-env ELEVENTY_ENV=production eleventy",
+    "clean": "rimraf dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -25,11 +30,31 @@
   "homepage": "https://github.com/11ty/eleventy-base-blog#readme",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-cache-assets": "^2.3.0",
     "@11ty/eleventy-navigation": "^0.3.2",
     "@11ty/eleventy-plugin-rss": "^1.1.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.2",
+    "clean-css": "^5.1.5",
+    "critical": "^4.0.1",
+    "cssesc": "^3.0.0",
+    "html-minifier": "^4.0.0",
     "luxon": "^1.26.0",
     "markdown-it": "^12.1.0",
-    "markdown-it-anchor": "^8.1.2"
+    "markdown-it-anchor": "^8.1.2",
+    "memfs": "^3.2.4",
+    "mime": "^2.5.2",
+    "node-sass": "^6.0.1",
+    "svg-sprite": "^1.5.2",
+    "webpack": "^5.51.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.4",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "focus-visible": "^5.2.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
   }
 }

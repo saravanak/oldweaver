@@ -1,0 +1,32 @@
+---
+layout: home
+title: AOC Track Record
+templateClass: tmpl-post
+---
+
+<table>
+    <thead>
+        <tr>
+            <th> Year</th>
+            <th> Stars</th>
+            <th> Backstory</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in aocTrackRecord %}
+            <tr>
+                <td>
+                    {{item.year}}</td>
+                <td>
+                    {{item.stars}}</td>
+                <td>
+                    <i>{{item.comment}}
+                    </i>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
