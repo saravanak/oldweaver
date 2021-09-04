@@ -3,18 +3,27 @@
 <head>
     {% include "meta.njk" %}
     <link rel="preload" href="{{ '/assets/fonts/butler-medium.woff2' | url }}" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="{{ '/assets/styles/main.css' | url }}">
+    <link rel="stylesheet" href="{{ '/assets/styles/resume.css' | url }}">
 </head>
 <body {% if meta.colors %}style="{{ meta.colors | themeColors }}"{% endif %}>
     <div data-icon-sprite hidden>{% iconsprite %}</div>
 
+    <header>
+      <h1 class="home"><a href="{{ '/' | url }}">{{ metadata.title }}</a></h1>
+
+      {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+      <ul class="nav">
+      {%- for entry in collections.all | eleventyNavigation %}
+        <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
+      {%- endfor %}
+      </ul>
+    </header>
     <div class="layout h-resume" role="document">
         {% include "header.njk" %}
         {{ content | safe }}
         {% include "sidebar.njk" %}
         {% include "footer.njk" %}
     </div>
-
     <script type="text/javascript" src="{{ '/assets/scripts/main.js' | url }}"></script>
     <!--! LAST BUILD: {{ build.env}} {{ build.timestamp | dateToISO }} -->
 </body>

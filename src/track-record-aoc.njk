@@ -1,32 +1,36 @@
 ---
 layout: home
 title: AOC Track Record
-templateClass: tmpl-post
+templateClass: tmpl-post container
 ---
 
-<table>
-    <thead>
-        <tr>
-            <th> Year</th>
-            <th> Stars</th>
-            <th> Backstory</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        {% for item in aocTrackRecord %}
+<div class="container">
+    <div class="row">
+    <div class="column column-50 column-offset-25">
+    <table>
+        <thead>
             <tr>
-                <td>
-                    {{item.year}}</td>
-                <td>
-                    {{item.stars}}</td>
-                <td>
-                    <i>{{item.comment}}
-                    </i>
-                </td>
+                <th> Year</th>
+                <th> Stars</th>
+                <th> Backstory</th>
             </tr>
+        </thead>
 
-        {% endfor %}
-    </tbody>
-</table>
+        <tbody>
+            {% for item in aocTrackRecord %}
+                <tr>
+                    <td>
+                        {{item.year}}</td>
+                    <td>
+                        {{item.stars}}</td>
+                    <td>
+                        <i>{{item.comment}}
+                        </i>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+</div>
