@@ -1,22 +1,13 @@
-// This file handles the JS build.
-// It will run webpack with babel over all JS defined in the main entry file.
-
-// main entry point name
-const ENTRY_FILE_NAME = 'main.js'
-
 const fs = require('fs')
-const path = require('path')
 const webpack = require('webpack')
+const html = require('htm')
 const { fs: mfs } = require('memfs')
-
 const isProd = process.env.ELEVENTY_ENV === 'production'
 
-module.exports = class {
+class WebpackCompiler {
     // Configure Webpack in Here
-    async data() {
-        const entryPath = path.join(__dirname, `/${ENTRY_FILE_NAME}`)
-        const outputPath = path.resolve(__dirname, '../../memory-fs/js/')
-
+    webpackConfig({ entryPath, outputPath, entryName, exportAslib }= {exportAslib: false}) {
+        
         // Transform .js files, run through Babel
         const rules = [
             {
@@ -25,8 +16,17 @@ module.exports = class {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-transform-runtime']
+                        presets: ['@babel/preset-env',
+                        ["@babel/preset-typescript", { jsxPragma: "h" }], // Add jsxPragma here
+                    ],
+                        plugins: [
+                            '@babel/plugin-transform-runtime',
+                            ["@babel/plugin-transform-react-jsx", {
+                                "runtime": "automatic",
+                                "importSource": "preact"
+                            }]
+
+                        ]
                     }
                 }
             }
@@ -37,30 +37,45 @@ module.exports = class {
             ELEVENTY_ENV: process.env.ELEVENTY_ENV
         })
 
+        const providePlugin = new webpack.ProvidePlugin({
+            h: 'htm'
+        })
+
         // Main Config
         const webpackConfig = {
             mode: isProd ? 'production' : 'development',
-            entry: entryPath,
-            output: { path: outputPath },
+            entry: {
+              [entryName]:  entryPath
+            },
+            output: { 
+                path: outputPath,
+            },
             module: { rules },
-            plugins: [envPlugin]
+            plugins: [
+                // providePlugin, 
+                envPlugin
+            ]
         }
 
-        return {
-            permalink: `/assets/scripts/${ENTRY_FILE_NAME}`,
-            eleventyExcludeFromCollections: true,
-            webpackConfig
+        if(exportAslib) {
+            webpackConfig.output.library = entryName
         }
+
+        return webpackConfig;
     }
+
+
 
     // Compile JS with Webpack, write the result to Memory Filesystem.
     // this brilliant idea is taken from Mike Riethmuller / Supermaya
     // @see https://github.com/MadeByMike/supermaya/blob/master/site/utils/compile-webpack.js
-    compile(webpackConfig) {
+    compile({ webpackConfig, entryFile }) {
         const compiler = webpack(webpackConfig)
         compiler.outputFileSystem = mfs
         compiler.inputFileSystem = fs
         compiler.intermediateFileSystem = mfs
+
+        console.log({webpackConfig, entryFile});
 
         return new Promise((resolve, reject) => {
             compiler.run((err, stats) => {
@@ -74,7 +89,7 @@ module.exports = class {
                 }
 
                 mfs.readFile(
-                    webpackConfig.output.path + '/' + ENTRY_FILE_NAME,
+                    webpackConfig.output.path + '/' + entryFile,
                     'utf8',
                     (err, data) => {
                         if (err) reject(err)
@@ -86,9 +101,9 @@ module.exports = class {
     }
 
     // render the JS file
-    async render({ webpackConfig }) {
+    async render({ webpackConfig, entryFile }) {
         try {
-            const result = await this.compile(webpackConfig)
+            const result = await this.compile({ webpackConfig, entryFile })
             return result
         } catch (err) {
             console.log(err)
@@ -96,3 +111,4 @@ module.exports = class {
         }
     }
 }
+module.exports = WebpackCompiler;

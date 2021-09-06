@@ -36,6 +36,7 @@ module.exports = function (eleventyConfig) {
 
   // Asset Watch Targets
   eleventyConfig.addWatchTarget('./src/assets')
+  eleventyConfig.addWatchTarget('./src/preact')
 
 
 

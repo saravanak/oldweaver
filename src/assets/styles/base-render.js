@@ -1,6 +1,6 @@
 const sass = require('node-sass')
 const isProd = process.env.ELEVENTY_ENV === 'production'
-
+const CleanCSS = require('clean-css')
 class BaseRender{
 // Compile Sass to CSS,
     // Embed Source Map in Development

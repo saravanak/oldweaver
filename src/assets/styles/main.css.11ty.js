@@ -5,7 +5,6 @@
 const ENTRY_FILE_NAME = 'main.scss'
 
 const path = require('path')
-const CleanCSS = require('clean-css')
 const cssesc = require('cssesc')
 const BaseRender = require('./base-render');
 
