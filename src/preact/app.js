@@ -1,5 +1,6 @@
 import Navigo from 'navigo'; // When using ES modules.
 import { render } from 'preact';
+import queryString from 'query-string';
 import Multiplication from './multiplication';
 import Addition from './addition';
 
@@ -7,9 +8,14 @@ function load() {
   const router = new Navigo('/demos/base');
   router
     .on('/', (match) => {
-      switch (match.hashString) {
+      const { url, query} = queryString.parseUrl(`${match.hashString}`, {
+        parseNumbers: true,
+      });
+
+      console.log(query);
+      switch (url) {
         case 'multiplication':
-          render(<Multiplication />, document.querySelector('.app'))
+          render(<Multiplication multiplicant={query.cant} multiplier={query.lier} />, document.querySelector('.app'))
           break;
         case 'addition':
         default:

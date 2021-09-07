@@ -3,6 +3,7 @@ import {
   reverse, cloneDeep, merge, range,
 } from 'lodash';
 import MicroModal from 'micromodal';
+import PropTypes from 'prop-types';
 import { randomNumber, placeValues, multiplicationRow } from './utils/math';
 import Product from './models/product';
 
@@ -83,7 +84,22 @@ class Multiplication extends Component {
     };
   }
 
+  componentWillMount() {
+    const {multiplier, multiplicant} = this.props;
+    this.setState({
+      problem: new Product({ multiplier, multiplicant }),
+    });
+  }
+
+  componentWillReceiveProps({multiplier, multiplicant}) {
+    console.log('derived state.');
+    this.setState({
+      problem: new Product({ multiplier, multiplicant }),
+    });
+  }
+
   renderProduct() {
+    console.log(this.props);
     const { problem } = this.state;
     const components = problem.components();
     const {
@@ -166,4 +182,13 @@ class Multiplication extends Component {
   }
 }
 
+Multiplication.defaultProps = {
+  multiplicant: 42,
+  multiplier: 24,
+};
+
+Multiplication.propTypes = {
+  multiplicant: PropTypes.number,
+  multiplier: PropTypes.number,
+};
 export default Multiplication;
