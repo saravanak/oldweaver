@@ -24,7 +24,8 @@ class WebpackCompiler {
                             ["@babel/plugin-transform-react-jsx", {
                                 "runtime": "automatic",
                                 "importSource": "preact"
-                            }]
+                            }],
+                            
 
                         ]
                     }
@@ -37,9 +38,6 @@ class WebpackCompiler {
             ELEVENTY_ENV: process.env.ELEVENTY_ENV
         })
 
-        const providePlugin = new webpack.ProvidePlugin({
-            h: 'htm'
-        })
 
         // Main Config
         const webpackConfig = {
@@ -49,10 +47,10 @@ class WebpackCompiler {
             },
             output: { 
                 path: outputPath,
+                globalObject: 'window'
             },
             module: { rules },
             plugins: [
-                // providePlugin, 
                 envPlugin
             ]
         }

@@ -2,7 +2,7 @@
 // It will run webpack with babel over all JS defined in the main entry file.
 
 // main entry point name
-const ENTRY_FILE_NAME = 'multiplication.js'
+const ENTRY_FILE_NAME = 'app.js'
 const path = require('path')
 
 const WebpackCompiler = require('../assets/scripts/webpack-compiler');

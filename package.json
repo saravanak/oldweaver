@@ -63,11 +63,15 @@
     "focus-visible": "^5.2.0",
     "htm": "^3.1.0",
     "lodash": "^4.17.21",
+    "micromodal": "^0.4.6",
     "milligram": "^1.4.1",
+    "mobile-device-detect": "^0.4.3",
+    "navigo": "^8.11.1",
     "nodemon": "^2.0.12",
     "npm-run-all": "^4.1.5",
     "preact": "^10.5.14",
     "preact-render-to-string": "^5.1.19",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "tachyons": "^4.12.0"
   }
 }
