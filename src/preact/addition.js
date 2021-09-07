@@ -1,4 +1,5 @@
 import { Component } from 'preact';
+
 class Addition extends Component {
   render() {
     return (
@@ -6,5 +7,4 @@ class Addition extends Component {
   }
 }
 
-export {Addition};
-
+export default Addition;
