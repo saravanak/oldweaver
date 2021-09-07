@@ -2,7 +2,7 @@ import Navigo from 'navigo'; // When using ES modules.
 import { render } from 'preact';
 import queryString from 'query-string';
 import Multiplication from './multiplication';
-import Addition from './addition';
+import Home from './home';
 
 function load() {
   const router = new Navigo('/demos/base');
@@ -12,14 +12,17 @@ function load() {
         parseNumbers: true,
       });
 
-      console.log(query);
       switch (url) {
         case 'multiplication':
-          render(<Multiplication multiplicant={query.cant} multiplier={query.lier} />, document.querySelector('.app'))
+          render(
+              <div>
+                  <a href="/demos/base"> Demo Home</a>
+          <Multiplication multiplicant={query.cant} multiplier={query.lier} />
+          </div>
+          , document.querySelector('.app'))
           break;
-        case 'addition':
         default:
-          render(<Addition />, document.querySelector('.app'))
+          render(<Home />, document.querySelector('.app'))
           break;
       }
     })

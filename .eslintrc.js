@@ -24,6 +24,7 @@ module.exports = {
     {
       "files": ["*.js"],
       rules: {
+        "no-console": "error",
         "brace-style": ["error", "1tbs"],
         "arrow-body-style": ["error", "always"],
         "react/jsx-filename-extension": 'off',

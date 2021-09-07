@@ -1,6 +1,6 @@
 import {toDigits, carryoverAndProduct } from '../../utils/math'
 
-describe("A suite", () => {
+describe("Math", () => {
   it("toDigits", () => {
     expect(toDigits(1000)).toEqual([1, 0, 0, 0]);
     expect(toDigits(1001)).toEqual([1, 0, 0, 1]);
@@ -10,14 +10,13 @@ describe("A suite", () => {
 
   it('carryoverAndProduct', () => {
     expect(carryoverAndProduct(4, 8)).toEqual({
-      carryOvers: [0],
+      carryOvers: [null],
       product: [3, 2],
     });
 
     const result = carryoverAndProduct(40404, 8);
-    console.log(result);
     expect(result).toEqual({
-      carryOvers: [0, 3, 0, 3, 0],
+      carryOvers: [null, 3, null, 3, null],
       product: [3, 2, 3, 2, 3, 2],
     });
   })

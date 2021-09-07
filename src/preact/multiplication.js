@@ -46,8 +46,12 @@ class Multiplication extends Component {
     prefix: null, isCarryover: false, isStrikeThrough: false,
   }) {
     const {
-      prefix, isCarryover, drawBottomBorder, digitClick, isStrikeThrough, additionalClasses,
+      prefix, isCarryover, drawBottomBorder,
+      digitClick, isStrikeThrough, additionalClasses,
     } = options;
+    
+    let { rowDynamicAttrbiutes } = options;
+    rowDynamicAttrbiutes = rowDynamicAttrbiutes || {};
     const paddedDigits = digits.map((v) => {
       return v
     });
@@ -59,7 +63,7 @@ class Multiplication extends Component {
     })
 
     return (
-      <tr className={classes}>
+      <tr className={classes} data-testid={rowDynamicAttrbiutes['data-testid']}>
         {[
           prefix ? (
             <td>
@@ -85,21 +89,19 @@ class Multiplication extends Component {
   }
 
   componentWillMount() {
-    const {multiplier, multiplicant} = this.props;
+    const { multiplier, multiplicant } = this.props;
     this.setState({
       problem: new Product({ multiplier, multiplicant }),
     });
   }
 
-  componentWillReceiveProps({multiplier, multiplicant}) {
-    console.log('derived state.');
+  componentWillReceiveProps({ multiplier, multiplicant }) {
     this.setState({
       problem: new Product({ multiplier, multiplicant }),
     });
   }
 
   renderProduct() {
-    console.log(this.props);
     const { problem } = this.state;
     const components = problem.components();
     const {
@@ -140,6 +142,7 @@ class Multiplication extends Component {
         Multiplication.numberRow(answer, maxTableLength, {
           drawBottomBorder: true,
           additionalClasses: { b: true },
+          rowDynamicAttrbiutes: { 'data-testid': 'mult-answer' },
         }),
       ])
   }

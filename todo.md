@@ -1,4 +1,5 @@
-- [] Cypress.
-- [] welcome page for demos.
+- [x] Cypress.
+    - [ ] Handle exit code 130 on the e2e:ci script. 
+- [] Welcome page for demos.
 - [] Deploy
 - [] Deploy flutter.
