@@ -9,12 +9,14 @@ const filters = require('./src/utils/filters.js')
 const transforms = require('./src/utils/transforms.js')
 const shortcodes = require('./src/utils/shortcodes.js')
 const iconsprite = require('./src/utils/iconsprite.js')
+const readerBar = require('eleventy-plugin-reader-bar')
 
 module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
+  eleventyConfig.addPlugin(readerBar);
 
   // Filters
   Object.keys(filters).forEach((filterName) => {

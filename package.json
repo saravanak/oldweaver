@@ -17,8 +17,8 @@
     "test-preact": "jasmine",
     "e2e:dev": "run-p -r dev e2e-tests",
     "e2e:ci": "run-p -rc dev e2e-tests:ci",
-    "e2e-tests":"cypress run --config watchForFileChanges=true",
-    "e2e-tests:ci":"cypress run --config watchForFileChanges=false",
+    "e2e-tests": "cypress run --config watchForFileChanges=true",
+    "e2e-tests:ci": "cypress run --config watchForFileChanges=false",
     "test-preact:watch": "nodemon -e js --exec 'npm run test-preact'"
   },
   "repository": {
@@ -70,14 +70,15 @@
     "webpack": "^5.51.2"
   },
   "dependencies": {
-    "@testing-library/preact": "^2.0.1",
     "@babel/core": "^7.15.4",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",
+    "@testing-library/preact": "^2.0.1",
     "babel-loader": "^8.2.2",
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
+    "eleventy-plugin-reader-bar": "^0.2.0",
     "focus-visible": "^5.2.0",
     "htm": "^3.1.0",
     "lodash": "^4.17.21",
